@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from model.predict_video import predict_video
 import os
 
@@ -8,12 +8,7 @@ app.config["MAX_CONTENT_LENGTH"] = 100 * 1024 * 1024  # 100MB max file size
 
 @app.route("/", methods=["GET"])
 def home():
-    return jsonify(
-        {
-            "message": "Deepfake Detection API",
-            "endpoints": {"/predict": "POST - Upload video for deepfake detection"},
-        }
-    )
+    return render_template("index.html")
 
 
 @app.route("/predict", methods=["POST"])
