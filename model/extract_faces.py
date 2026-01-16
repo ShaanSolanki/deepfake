@@ -3,7 +3,7 @@ import os
 from mtcnn import MTCNN
 
 IMG_SIZE = 128
-FRAME_GAP = 10
+FRAME_GAP = 5  # Extract more frames for better training data
 
 
 def process_videos(input_dir, output_dir):

@@ -58,15 +58,19 @@ if __name__ == "__main__":
     base = tf.keras.applications.MobileNetV2(
         input_shape=(IMG_SIZE, IMG_SIZE, 3), include_top=False, weights="imagenet"
     )
+
+    # Freeze base initially
     base.trainable = False
 
     model = tf.keras.Sequential(
         [
             base,
             tf.keras.layers.GlobalAveragePooling2D(),
-            tf.keras.layers.Dropout(0.2),
+            tf.keras.layers.BatchNormalization(),
+            tf.keras.layers.Dense(256, activation="relu"),
+            tf.keras.layers.Dropout(0.5),
             tf.keras.layers.Dense(128, activation="relu"),
-            tf.keras.layers.Dropout(0.2),
+            tf.keras.layers.Dropout(0.3),
             tf.keras.layers.Dense(1, activation="sigmoid"),
         ]
     )
@@ -78,12 +82,26 @@ if __name__ == "__main__":
     )
 
     print("Training model...")
+
+    # Add callbacks
+    from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
+
+    callbacks = [
+        EarlyStopping(
+            monitor="val_accuracy", patience=7, restore_best_weights=True, verbose=1
+        ),
+        ReduceLROnPlateau(
+            monitor="val_loss", factor=0.5, patience=3, min_lr=1e-7, verbose=1
+        ),
+    ]
+
     history = model.fit(
         X_train,
         y_train,
         validation_data=(X_val, y_val),
-        epochs=8,
+        epochs=30,
         batch_size=32,
+        callbacks=callbacks,
         verbose=1,
     )
 
