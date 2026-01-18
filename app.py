@@ -1,14 +1,21 @@
 from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
 from model.predict_video import predict_video
 import os
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 app.config["MAX_CONTENT_LENGTH"] = 100 * 1024 * 1024  # 100MB max file size
 
 
 @app.route("/", methods=["GET"])
 def home():
     return render_template("index.html")
+
+
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({"status": "ok", "message": "Backend is running"})
 
 
 @app.route("/predict", methods=["POST"])

@@ -1,27 +1,34 @@
-import FaultyTerminal from "./FaultyTerminal";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
+import GlobalClickSpark from "./components/GlobalClickSpark";
+import HomePage from "./pages/HomePage";
+import DetectionPage from "./pages/DetectionPage";
+import AwarenessPage from "./pages/AwarenessPage";
 import "./App.css";
 
 function App() {
   return (
-    <FaultyTerminal
-      scale={1.5}
-      gridMul={[2, 1]}
-      digitSize={1.2}
-      timeScale={1}
-      pause={false}
-      scanlineIntensity={1}
-      glitchAmount={1}
-      flickerAmount={1}
-      noiseAmp={0.5}
-      chromaticAberration={0}
-      dither={0}
-      curvature={0.3}
-      tint="#00ff00"
-      mouseReact={true}
-      mouseStrength={0.5}
-      pageLoadAnimation={false}
-      brightness={0.6}
-    />
+    <Router>
+      <div className="app">
+        <GlobalClickSpark
+          sparkColor="#61dca3"
+          sparkSize={10}
+          sparkRadius={18}
+          sparkCount={8}
+          duration={450}
+        />
+        <Navigation />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/detection" element={<DetectionPage />} />
+            <Route path="/awareness" element={<AwarenessPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
