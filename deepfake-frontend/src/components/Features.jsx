@@ -1,4 +1,9 @@
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import ScrollReveal from "./ScrollReveal";
+
 const Features = () => {
+  const [sectionRef, sectionVisible] = useScrollAnimation({ threshold: 0.1 });
+
   const features = [
     {
       title: "AI-Powered Detection",
@@ -33,17 +38,35 @@ const Features = () => {
   ];
 
   return (
-    <section id="features" className="features">
+    <section
+      ref={sectionRef}
+      id="features"
+      className={`features ${sectionVisible ? "section-visible" : ""}`}
+    >
       <div className="container">
-        <h2 className="section-title">Platform Features</h2>
-        <p className="section-subtitle">
+        <ScrollReveal
+          baseOpacity={0.3}
+          enableBlur
+          baseRotation={3}
+          blurStrength={4}
+          containerClassName="section-title-wrapper"
+          textClassName="section-title-scroll"
+        >
+          Platform Features
+        </ScrollReveal>
+        <p
+          className={`section-subtitle ${sectionVisible ? "fade-in-up-delay" : ""}`}
+        >
           Comprehensive deepfake detection with industry-leading accuracy and
           support
         </p>
 
         <div className="features-grid">
           {features.map((feature, index) => (
-            <div key={index} className="feature-card">
+            <div
+              key={index}
+              className={`feature-card ${sectionVisible ? `fade-in-up-delay-${index % 3 + 1}` : ""}`}
+            >
               <h3 className="feature-title">{feature.title}</h3>
               <p className="feature-description">{feature.description}</p>
             </div>

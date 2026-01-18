@@ -1,10 +1,29 @@
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import ScrollReveal from "./ScrollReveal";
+
 const Trust = () => {
+  const [sectionRef, sectionVisible] = useScrollAnimation({ threshold: 0.15 });
+
   return (
-    <section className="trust">
+    <section
+      ref={sectionRef}
+      className={`trust ${sectionVisible ? "section-visible" : ""}`}
+    >
       <div className="container">
-        <h2 className="section-title">Responsible AI Detection</h2>
+        <ScrollReveal
+          baseOpacity={0.3}
+          enableBlur
+          baseRotation={3}
+          blurStrength={4}
+          containerClassName="section-title-wrapper"
+          textClassName="section-title-scroll"
+        >
+          Responsible AI Detection
+        </ScrollReveal>
         <div className="trust-content">
-          <div className="trust-item">
+          <div
+            className={`trust-item ${sectionVisible ? "fade-in-up-delay-1" : ""}`}
+          >
             <h3 className="trust-subtitle">Probabilistic Analysis</h3>
             <p className="trust-text">
               Our AI provides confidence scores, not absolute certainty. Results
@@ -13,7 +32,9 @@ const Trust = () => {
             </p>
           </div>
 
-          <div className="trust-item">
+          <div
+            className={`trust-item ${sectionVisible ? "fade-in-up-delay-2" : ""}`}
+          >
             <h3 className="trust-subtitle">Privacy First</h3>
             <p className="trust-text">
               Videos are processed locally and deleted immediately after
@@ -22,7 +43,9 @@ const Trust = () => {
             </p>
           </div>
 
-          <div className="trust-item">
+          <div
+            className={`trust-item ${sectionVisible ? "fade-in-up-delay-3" : ""}`}
+          >
             <h3 className="trust-subtitle">Ethical Usage</h3>
             <p className="trust-text">
               This platform is designed for protection and education. We provide

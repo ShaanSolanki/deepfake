@@ -1,0 +1,19 @@
+.scroll-reveal {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.scroll-reveal-text {
+  margin: 0;
+  padding: 0;
+}
+
+.word {
+  display: inline-block;
+  white-space: pre-wrap;
+  opacity: 0.7;
+  will-change: opacity, filter, transform;
+  transition: opacity 0.3s ease;
+}

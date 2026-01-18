@@ -7,23 +7,23 @@ const AnalysisResult = ({ analysisData, isOrgMode }) => {
     if (result === "REAL") {
       return {
         icon: "✓",
-        title: "Video is REAL",
-        description: "This video appears to be authentic and not manipulated.",
+        title: "Analysis Result: Authentic Content",
+        description: "The AI analysis indicates this video appears to be authentic and not manipulated. However, automated detection systems are not infallible. Consider source verification and context when making decisions.",
         className: "real",
       };
     } else if (result === "FAKE") {
       return {
         icon: "✗",
-        title: "Video is FAKE",
+        title: "Analysis Result: Potential Deepfake Detected",
         description:
-          "This video appears to be a deepfake or manipulated content.",
+          "The AI analysis indicates this video contains patterns consistent with synthetic or manipulated content (deepfake). Review the post-detection guidance for recommended response procedures.",
         className: "fake",
       };
     } else {
       return {
         icon: "?",
-        title: "Unable to Determine",
-        description: "Could not detect faces or analyze the video properly.",
+        title: "Analysis Result: Inconclusive",
+        description: "The system could not confidently determine the authenticity of this video. This may be due to video quality, lack of detectable faces, or technical limitations. Consider expert analysis if this content is of concern.",
         className: "unsure",
       };
     }
@@ -54,20 +54,31 @@ const AnalysisResult = ({ analysisData, isOrgMode }) => {
 
       <div className="analysis-metadata">
         <div className="metadata-item">
-          <strong>File:</strong> {file.name}
+          <span className="metadata-label">File Name:</span>
+          <span className="metadata-value">{file.name}</span>
         </div>
         <div className="metadata-item">
-          <strong>Size:</strong> {(file.size / (1024 * 1024)).toFixed(2)} MB
+          <span className="metadata-label">File Size:</span>
+          <span className="metadata-value">{(file.size / (1024 * 1024)).toFixed(2)} MB</span>
         </div>
         <div className="metadata-item">
-          <strong>Analyzed:</strong> {timestamp.toLocaleString()}
+          <span className="metadata-label">Analysis Date:</span>
+          <span className="metadata-value">{timestamp.toLocaleString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })}</span>
         </div>
         <div className="metadata-item">
-          <strong>Hash:</strong> {fileHash.substring(0, 16)}...
+          <span className="metadata-label">File Hash (SHA-256):</span>
+          <span className="metadata-value hash-value">{fileHash.substring(0, 16)}...</span>
         </div>
         {isOrgMode && (
           <div className="metadata-item">
-            <strong>Mode:</strong> Organization Analysis
+            <span className="metadata-label">Analysis Mode:</span>
+            <span className="metadata-value">Organization</span>
           </div>
         )}
       </div>

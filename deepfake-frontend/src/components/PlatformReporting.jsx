@@ -87,9 +87,11 @@ const PlatformReporting = () => {
 
   return (
     <div className="platform-reporting">
-      <h3>Platform-Specific Reporting</h3>
+      <h3 className="platform-reporting-title">Platform-Specific Reporting Procedures</h3>
       <p className="platform-description">
-        Select a platform to see detailed reporting instructions:
+        Each platform has specific procedures for reporting manipulated media. Select a platform
+        below to view step-by-step reporting instructions. These procedures are based on current
+        platform policies and may be updated by the platforms.
       </p>
 
       <div className="platform-buttons">
@@ -107,19 +109,28 @@ const PlatformReporting = () => {
 
       {selectedPlatform && platformGuides[selectedPlatform] && (
         <div className="platform-guide">
-          <h4>{platformGuides[selectedPlatform].title}</h4>
+          <h4 className="platform-guide-title">{platformGuides[selectedPlatform].title}</h4>
+          <div className="guide-intro">
+            <p>Follow these steps to report manipulated media on this platform:</p>
+          </div>
           <ol className="guide-steps">
             {platformGuides[selectedPlatform].steps.map((step, index) => (
               <li key={index} className="guide-step">
-                {step}
+                <span className="guide-step-number">{index + 1}</span>
+                <span className="guide-step-text">{step}</span>
               </li>
             ))}
           </ol>
-          <p className="guide-note">
-            <strong>Note:</strong> Platform policies and reporting procedures
-            may change. Always check the platform's official help center for the
-            most current information.
-          </p>
+          <div className="guide-important">
+            <h5>Important Notes:</h5>
+            <ul>
+              <li>Platform policies and reporting procedures may change without notice</li>
+              <li>Always verify current procedures in the platform's official Help Center</li>
+              <li>Keep records of your report submission (screenshot confirmation, reference numbers)</li>
+              <li>Follow up if the content is not removed within the platform's stated timeframe</li>
+              <li>Consider reporting to multiple platforms if content appears on several</li>
+            </ul>
+          </div>
         </div>
       )}
     </div>

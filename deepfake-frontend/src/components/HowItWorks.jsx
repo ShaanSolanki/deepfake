@@ -1,4 +1,9 @@
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import ScrollReveal from "./ScrollReveal";
+
 const HowItWorks = () => {
+  const [sectionRef, sectionVisible] = useScrollAnimation({ threshold: 0.15 });
+
   const steps = [
     {
       number: "01",
@@ -25,16 +30,34 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section id="how-it-works" className="how-it-works">
+    <section
+      ref={sectionRef}
+      id="how-it-works"
+      className={`how-it-works ${sectionVisible ? "section-visible" : ""}`}
+    >
       <div className="container">
-        <h2 className="section-title">How It Works</h2>
-        <p className="section-subtitle">
+        <ScrollReveal
+          baseOpacity={0.3}
+          enableBlur
+          baseRotation={3}
+          blurStrength={4}
+          containerClassName="section-title-wrapper"
+          textClassName="section-title-scroll"
+        >
+          How It Works
+        </ScrollReveal>
+        <p
+          className={`section-subtitle ${sectionVisible ? "fade-in-up-delay" : ""}`}
+        >
           Simple, secure, and accurate deepfake detection in four steps
         </p>
 
         <div className="steps-grid">
           {steps.map((step, index) => (
-            <div key={index} className="step-card">
+            <div
+              key={index}
+              className={`step-card ${sectionVisible ? `fade-in-up-delay-${index + 1}` : ""}`}
+            >
               <div className="step-number">{step.number}</div>
               <h3 className="step-title">{step.title}</h3>
               <p className="step-description">{step.description}</p>
